@@ -14,12 +14,14 @@ web3.eth.getBalance(receivingAddress).then(console.log)
 
 //Set up the transaction using the transaction variables as shown 
 var rawTransaction = {
- 	nonce: 0,
+ 	nonce: 2,
   to: receivingAddress,
   gasPrice: 20000000,
   gasLimit: 30000,
-  value: 1000,
-  data: "" }
+  value: 100,
+  data: ""
+ }
+
 
 /*##########################
 Sign the Transaction
@@ -35,5 +37,20 @@ transaction.sign(privateKeySenderHex)
 Send the transaction to the network
 #########################################*/
 var serializedTransaction = transaction.serialize(); 
-web3.eth.sendSignedTransaction(serializedTransaction).catch(error => { console.log(`An error occurred processing the transaction: ${error}`); })
+
+// Getting error
+// web3.eth.sendSignedTransaction(serializedTransaction)
+
+// Getting error
+// web3.eth.sendSignedTransaction(serializedTransaction).catch(error => { console.log(`An error occurred processing the transaction: ${error}`); })
+
+// Working fine
+web3.eth.sendSignedTransaction(serializedTransaction,function(error,result){
+ if(error){
+    console.log(error)
+ }
+ else{
+    console.log(result)
+ }
+})
 
